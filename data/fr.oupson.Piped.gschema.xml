@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="piped">
+	<schema id="fr.oupson.Piped" path="/fr/oupson/Piped/">
+	</schema>
+</schemalist>

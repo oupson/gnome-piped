@@ -1,0 +1,6 @@
+data/fr.oupson.Piped.desktop.in
+data/fr.oupson.Piped.metainfo.xml.in
+data/fr.oupson.Piped.gschema.xml
+src/main.vala
+src/window.vala
+src/window.ui

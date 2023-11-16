@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=piped
+Exec=piped
+Icon=fr.oupson.Piped
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true

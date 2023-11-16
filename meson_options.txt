@@ -1,0 +1,1 @@
+option('piped_in_flatpak', type: 'boolean', value: false)

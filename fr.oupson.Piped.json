@@ -1,0 +1,71 @@
+{
+    "app-id" : "fr.oupson.Piped",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "45",
+    "sdk" : "org.gnome.Sdk",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.vala"
+    ],
+    "command" : "piped",
+    "finish-args" : [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--device=all",
+        "--socket=wayland"
+    ],
+    "build-options" : {
+        "append-path" : "/usr/lib/sdk/vala/bin",
+        "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib",
+        "env" : {        }
+    },
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "/share/vala",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+      {
+            "name": "webp-pixbuf-loader",
+            "buildsystem": "meson",
+            "build-options": {
+                "env": {
+                    "GDK_PIXBUF_MODULEDIR": "/app/lib/piped/gdk-pixbuf/2.10.0/"
+                }
+            },
+            "config-opts" : [
+                "-Dgdk_pixbuf_moduledir=/app/lib/piped/gdk-pixbuf/2.10.0/"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/aruiz/webp-pixbuf-loader.git",
+                    "commit": "a35014104a226265e44fe30fcdb4df9305af3466",
+                    "tag": "0.2.4"
+                }
+            ],
+            "post-install": [
+                "gdk-pixbuf-query-loaders > /app/lib/piped/gdk-pixbuf/2.10.0/loaders.cache"
+            ]
+        },
+
+        {
+            "name" : "piped",
+            "buildsystem" : "meson",
+            "config-opts": ["-Dpiped_in_flatpak=true"],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "."
+                }
+            ]
+        }
+    ]
+}
