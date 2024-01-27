@@ -25,34 +25,19 @@ namespace Piped {
     [GtkTemplate (ui = "/fr/oupson/Piped/window.ui")]
     public class Window : Adw.ApplicationWindow {
         [GtkChild]
-        private unowned Gtk.GridView grid;
+        private unowned Gtk.Box child;
 
         public Window (Gtk.Application app) {
             Object (application: app);
 
-            ListStore list_store = new ListStore(typeof (StreamItem));
+            var grid = new Piped.VideoGrid();
+            grid.set_parent(child);
 
-            var api_client = Piped.PipedApi.ApiClient.get_instance();
-            api_client.load_trending.begin ("US", null, (obj, res) => {
-                try {
-                    var stream_list = api_client.load_trending.end(res);
+            grid.on_item_clicked.connect (on_video_selected);
+        }
 
-                    foreach(var item in stream_list) {
-                        list_store.append (item);
-                    }
-                } catch(Error e) {
-                    warning("Failed to load trendings : %s", e.message);
-                }
-            });
-
-            grid.set_model (new Gtk.NoSelection (list_store));
-
-            var factory = StreamItemFactoryUtils.get_factory();
-            grid.set_factory(factory);
-            grid.single_click_activate = true;
-            grid.activate.connect ((pos) =>{
-                warning("%ld", pos);
-            });
+        private void on_video_selected(StreamItem item) {
+            warning("%s", item.title);
         }
     }
 }

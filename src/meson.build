@@ -4,6 +4,8 @@ piped_sources = [
   'window.vala',
   'stream-item-factory.vala',
   'square-frame.vala',
+  'video-view.vala',
+  'video-grid.vala'
 ]
 
 piped_deps = [
