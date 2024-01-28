@@ -4,7 +4,8 @@
     "runtime-version" : "45",
     "sdk" : "org.gnome.Sdk",
     "sdk-extensions" : [
-        "org.freedesktop.Sdk.Extension.vala"
+        "org.freedesktop.Sdk.Extension.vala",
+        "org.freedesktop.Sdk.Extension.rust-stable"
     ],
     "command" : "piped",
     "finish-args" : [
@@ -12,12 +13,15 @@
         "--share=ipc",
         "--socket=fallback-x11",
         "--device=all",
-        "--socket=wayland"
+        "--socket=wayland",
+        "--socket=pulseaudio"
     ],
     "build-options" : {
-        "append-path" : "/usr/lib/sdk/vala/bin",
+        "append-path" : "/usr/lib/sdk/vala/bin:/usr/lib/sdk/rust-stable/bin",
         "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib",
-        "env" : {        }
+        "env" : {
+        	"CARGO_HOME": "/run/build/cargo-c/cargo"
+        }
     },
     "cleanup" : [
         "/include",
@@ -53,6 +57,40 @@
             ],
             "post-install": [
                 "gdk-pixbuf-query-loaders > /app/lib/piped/gdk-pixbuf/2.10.0/loaders.cache"
+            ]
+        },
+        {
+            "name": "cargo-c",
+            "buildsystem": "simple",
+            "build-commands": [
+                "cargo install cargo-c --root /app"
+            ],
+            "build-options": {
+                "build-args": [
+                    "--share=network"
+                ]
+            },
+            "cleanup": [
+                "*"
+            ]
+        },
+        {
+            "name": "gst-plugins-rs",
+            "buildsystem": "simple",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs",
+                    "branch": "0.11"
+                }
+            ],
+            "build-options": {
+                "build-args": [
+                    "--share=network"
+                ]
+            },
+            "build-commands": [
+                "cargo cinstall -p gst-plugin-gtk4 --prefix=/app"
             ]
         },
 

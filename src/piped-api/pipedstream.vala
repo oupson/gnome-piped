@@ -1,5 +1,5 @@
 namespace Piped.PipedApi {
-    class PipedStream : Object {
+    public class PipedStream : Object {
         public string url { get; set; }
         public string format { get; set; }
         public string quality { get; set; }

@@ -1,5 +1,6 @@
 namespace Piped.PipedApi {
     public class StreamItem : Object {
+        public string url { get; set; }
         public string title { get; set; }
         public string thumbnail { get; set; }
         public string uploaderName { get; set; }

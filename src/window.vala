@@ -37,7 +37,9 @@ namespace Piped {
         }
 
         private void on_video_selected(StreamItem item) {
-            warning("%s", item.title);
+            child.get_first_child().unparent();
+            var video_view = new Piped.VideoView.from_stream_item(item);
+            video_view.set_parent(child);
         }
     }
 }

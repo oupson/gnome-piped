@@ -96,6 +96,24 @@ namespace Piped.PipedApi {
             };
         }
 
+        public async Streams get_streams(string stream_id, Cancellable? cancellable = null) throws Error {
+            var msg = new Soup.Message("GET", this.base_url + "/streams/" + stream_id);
+            var stream = yield this.session.send_async(msg, GLib.Priority.DEFAULT, cancellable);
+
+            var parser = new Json.Parser();
+            var was_json_parsed = parser.load_from_stream(stream);
+            yield stream.close_async();
+
+            if (!was_json_parsed) {
+                throw new ApiErrorDomain.JSON_ERROR("Failed to load json");
+            }
+
+
+            var result = Json.gobject_deserialize (typeof (Streams), parser.get_root()) as Streams;
+
+            return result;
+        }
+
         private static ApiClient? INSTANCE = null;
 
         public static ApiClient get_instance() {

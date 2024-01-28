@@ -1,5 +1,5 @@
 namespace Piped.PipedApi {
     // TODO
-    class ContentItem : Object {
+    public class ContentItem : Object {
     }
 }

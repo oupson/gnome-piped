@@ -1,5 +1,5 @@
 namespace Piped.PipedApi {
-    class Subtitle : Object {
+    public class Subtitle : Object {
         public string url { get; set; }
         public string mimeType { get; set; }
         public string name { get; set; }

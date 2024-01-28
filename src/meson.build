@@ -13,6 +13,7 @@ piped_deps = [
   dependency('libadwaita-1', version: '>= 1.4'),
   dependency('libsoup-3.0'),
   dependency('json-glib-1.0'),
+  dependency('gstreamer-1.0')
 ]
 
 piped_sources += gnome.compile_resources('piped-resources',

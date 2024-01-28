@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="PipedVideoView" parent="GtkBox">
+  <template class="PipedVideoView" parent="GtkWidget">
+    <child>
+      <object class="GtkPicture" id="video_container">
+
+      </object>
+    </child>
   </template>
 </interface>
